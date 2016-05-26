@@ -1,6 +1,6 @@
-# Ember-addon-setup
+# Ember Addon Setup
 
-This README outlines the details of collaborating on this Ember addon.
+Blueprint for setting up an addon with a build and code coverage
 
 ## Installation
 

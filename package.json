@@ -1,7 +1,7 @@
 {
   "name": "ember-addon-setup",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Blueprint for setting up an addon with a build and code coverage",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,11 +11,14 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:offirgolan/ember-addon-setup"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Offir Golan <offirgolan@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
@@ -43,7 +46,8 @@
     "ember-addon"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.6"
+    "ember-cli-babel": "^5.1.6",
+    "fs-extra": "^0.30.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
