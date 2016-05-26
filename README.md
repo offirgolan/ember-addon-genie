@@ -10,11 +10,5 @@ Blueprint for setting up an addon with a build and code coverage
 ember install ember-addon-setup
 ```
 
-## Helpful Links
-
-- ### [Live Demo](http://offirgolan/.github.io/ember-addon-setup)
-
-- ### [Changelog](CHANGELOG.md)
-
 ## Looking for help?
 If it is a bug [please open an issue on GitHub](http://github.com/offirgolan/ember-addon-setup/issues).
