@@ -6,23 +6,15 @@ Blueprint for setting up an addon with a build and code coverage
 
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+```
+ember install ember-addon-setup
+```
 
-## Running
+## Helpful Links
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+- ### [Live Demo](http://offirgolan/.github.io/ember-addon-setup)
 
-## Running Tests
+- ### [Changelog](CHANGELOG.md)
 
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+## Looking for help?
+If it is a bug [please open an issue on GitHub](http://github.com/offirgolan/ember-addon-setup/issues).
