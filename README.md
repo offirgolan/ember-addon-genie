@@ -1,5 +1,7 @@
 # Ember Addon Setup
 
+[![npm version](https://badge.fury.io/js/ember-addon-setup.svg)](http://badge.fury.io/js/ember-addon-setup)
+
 Blueprint for setting up an addon with a build and code coverage
 
 ## Installation
