@@ -1,6 +1,6 @@
 {
   "name": "ember-addon-setup",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Blueprint for setting up an addon with a build and code coverage",
   "directories": {
     "doc": "doc",
