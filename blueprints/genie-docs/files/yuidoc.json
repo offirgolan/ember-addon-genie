@@ -1,0 +1,26 @@
+{
+  "name": "<%= dasherizedPackageName %>",
+  "description": "",
+  "url": "http://github.com/<%= username %>/<%= dasherizedPackageName %>",
+  "options": {
+    "enabledEnvironments": ["production"],
+    "paths": [
+      "app",
+      "addon",
+      "htmlbars-plugins"
+    ],
+    "external": {
+      "data": [{
+        "base": "http://emberjs.com/api/",
+        "json": "http://builds.emberjs.com/tags/v2.0.0/ember-docs.json"
+      }]
+    },
+    "exclude": "vendor",
+    "outdir": "docs",
+    "linkNatives": true,
+    "quiet": true,
+    "parseOnly": false,
+    "lint": false,
+    "nocode": false
+  }
+}

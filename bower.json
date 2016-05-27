@@ -1,5 +1,5 @@
 {
-  "name": "ember-addon-setup",
+  "name": "ember-addon-genie",
   "dependencies": {
     "ember": "~2.5.0",
     "ember-cli-shims": "0.1.1",

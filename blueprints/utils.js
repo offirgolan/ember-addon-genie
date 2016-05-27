@@ -1,9 +1,13 @@
 /*jshint node:true*/
 var fs = require('fs-extra'),
     path  = require('path'),
-    yaml = require('yamljs'),
+    readYaml = require('yamljs'),
     execSync = require('child_process').execSync,
-    Blueprint = require('ember-cli/lib/models/blueprint');
+    merge = require('lodash.merge'),
+    Promise    = require('ember-cli/lib/ext/promise'),
+    Blueprint = require('ember-cli/lib/models/blueprint'),
+    writeYaml = require('write-yaml');
+
 
 module.exports = {
   getContents: function(fileName, type) {
@@ -14,7 +18,7 @@ module.exports = {
     }
 
     if(type === 'yaml') {
-      return yaml.load(fullPath);
+      return readYaml.load(fullPath);
     }
 
     return fs.readFileSync(fullPath, 'utf-8');
@@ -28,7 +32,7 @@ module.exports = {
     }
 
     if(type === 'yaml') {
-      return fs.writeFileSync(fullPath, yaml.stringify(content, 10, 2));
+      return writeYaml.sync(fullPath, content);
     }
 
     return fs.writeFileSync(fullPath, content, 'utf8');
@@ -49,7 +53,18 @@ module.exports = {
     return this.ui.prompt(options);
   },
 
-  loadBlueprint: function(name) {
-    return Blueprint.load(path.resolve(__dirname, name)).install(this);
+  processBlueprint: function(type, name, options, extras) {
+    var self = this;
+    var bluePrint = Blueprint.lookup(name, {
+      paths: [ path.resolve(this.path, '../') ]
+    });
+
+    Object.keys(extras || {}).forEach(function(k) {
+      bluePrint[k] = extras[k];
+    });
+
+    return Promise.resolve().then(function() {
+       return bluePrint[type](merge({}, options));
+     });
   }
 };

@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-addon-setup'
+  name: 'ember-addon-genie'
 };

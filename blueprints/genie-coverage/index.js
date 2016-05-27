@@ -1,5 +1,6 @@
 /*jshint node:true*/
 var utils = require('../utils');
+var Promise    = require('ember-cli/lib/ext/promise');
 
 module.exports = {
   description: 'Setup coverage',
@@ -7,10 +8,8 @@ module.exports = {
   normalizeEntityName: function() {},
 
   afterInstall: function() {
-    var _this = this;
-    var travisYaml = utils.getContents.call(_this, '.travis.yml', 'yaml');
-
-    console.log('HERE');
+    var self = this;
+    var travisYaml = utils.getContents.call(this, '.travis.yml', 'yaml');
 
     return this.insertIntoFile('.gitignore', 'lcov.dat').then(function() {
       travisYaml.addons = travisYaml.addons || {};
@@ -20,24 +19,23 @@ module.exports = {
       travisYaml.after_script.push('codeclimate-test-reporter < lcov.dat');
 
       if(!travisYaml.addons.code_climate) {
-        return utils.prompt.call(_this, 'input', 'CodeClimate Repo Token:').then(function(response) {
-          console.log(response);
+        return utils.prompt.call(self, 'input', 'CodeClimate Repo Token:').then(function(response) {
           var token = response.answer.trim();
 
           if(token === '') {
             token = '<CODE_CLIMATE_TOKEN_GOES_HERE>';
-            _this.ui.writeLine('No worries! You can always enter it in later in your .travis.yml file');
+            self.ui.writeLine('No worries! You can always enter it in later in your .travis.yml file');
           }
 
           travisYaml.addons.code_climate = {
             repo_token: token
           };
-
-          utils.setContents.call(_this, '.travis.yml', 'yaml', travisYaml);
         });
       }
+
+      return Promise.resolve();
     }).then(function() {
-      utils.setContents.call(_this, '.travis.yml', 'yaml', travisYaml);
+      utils.setContents.call(self, '.travis.yml', 'yaml', travisYaml);
     });
   },
 };
