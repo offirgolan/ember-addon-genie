@@ -1,7 +1,11 @@
 /*jshint node:true*/
-var fs = require('fs-extra'),
-    path  = require('path'),
-    execSync = require('child_process').execSync;
+var utils = require('../utils');
+var PossibleOptions = [
+  { name: 'Code Coverage (Blanket + CodeClimate)', value: 'coverage', checked: true },
+  { name: 'Release', value: 'release', checked: true },
+  { name: 'Github Pages', value: 'ghPages', checked: true },
+  { name: 'Docs (YUI)', value: 'docs', checked: true }
+];
 
 module.exports = {
   description: 'Blueprint for setting up an addon with a build and code coverage',
@@ -9,31 +13,60 @@ module.exports = {
   normalizeEntityName: function() {},
 
   beforeInstall: function() {
-    return this.addAddonsToProject({
-      packages: [
-        'ember-cli-blanket',
-        'ember-cli-github-pages',
-        'ember-cli-release',
+    return utils.prompt.call(this, 'checkbox', 'Deselect any features you dont want (enter to continue):', PossibleOptions).then(function(response) {
+      var selectedOptions = {};
+
+      response.answer.forEach(function (option) {
+        selectedOptions[option] = true;
+      });
+
+      var packages = [
         'ember-cli-es5-shim'
-      ]});
+      ];
+
+      if(selectedOptions.release) {
+        packages.push('ember-cli-release');
+      }
+
+      if(selectedOptions.coverage) {
+        packages.push('ember-cli-blanket');
+      }
+
+      if(selectedOptions.ghPages) {
+        packages.push('ember-cli-github-pages');
+      }
+
+      if(selectedOptions.docs) {
+        packages.push('ember-cli-yuidoc');
+      }
+
+      this._selectedOptions = selectedOptions;
+
+      // return this.addAddonsToProject({ packages: packages });
+    }.bind(this));
   },
 
   afterInstall: function() {
-    modifyPackageJson.call(this);
+    var selectedOptions = this._selectedOptions;
 
-    return this.insertIntoFile('.gitignore', 'lcov.dat');
+    if(selectedOptions.coverage) {
+      // return utils.loadBlueprint.call(this, 'addon-setup-coverage');
+      utils.runCommand('ember generate addon-setup-coverage');
+    }
+
+    // modifyPackageJson.call(this);
   },
 
   locals: function() {
     return {
-      email: runCommand('git config user.email'),
-      username: runCommand('git config user.name'),
+      email: utils.runCommand('git config user.email'),
+      username: utils.runCommand('git config user.name'),
     };
   }
 };
 
 function modifyPackageJson() {
-  var json = getContents.call(this, 'package.json', 'json');
+  var json = utils.getContents.call(this, 'package.json', 'json');
   var locals = this.locals();
 
   json.repository = {
@@ -45,21 +78,5 @@ function modifyPackageJson() {
 
   json['ember-addon'].demoURL = 'http://' + locals.username + '.github.io/' + json.name;
 
-  setContents.call(this, 'package.json', 'json', json);
-}
-
-function getContents(fileName, type) {
-  var fullPath = path.join(this.project.root, fileName);
-
-  return (type === 'json') ? fs.readJsonSync(fullPath) : fs.readFileSync(fullPath, 'utf-8');
-}
-
-function setContents(fileName, type, content) {
-  var fullPath = path.join(this.project.root, fileName);
-
-  return (type === 'json') ? fs.writeFileSync(fullPath, JSON.stringify(content, null, 2) + '\n') : fs.writeFileSync(fullPath, content, 'utf8');
-}
-
-function runCommand(command) {
-  return execSync(command, { encoding: 'utf8' }).toString().trim();
+  utils.setContents.call(this, 'package.json', 'json', json);
 }

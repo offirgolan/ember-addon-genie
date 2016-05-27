@@ -47,7 +47,8 @@
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.6",
-    "fs-extra": "^0.30.0"
+    "fs-extra": "^0.30.0",
+    "yamljs": "^0.2.7"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
