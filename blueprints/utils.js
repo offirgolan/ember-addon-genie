@@ -1,13 +1,12 @@
 /*jshint node:true*/
-var fs = require('fs-extra'),
-    path  = require('path'),
-    readYaml = require('yamljs'),
-    execSync = require('child_process').execSync,
-    merge = require('lodash.merge'),
-    Promise    = require('ember-cli/lib/ext/promise'),
-    Blueprint = require('ember-cli/lib/models/blueprint'),
-    writeYaml = require('write-yaml');
-
+var fs        = require('fs-extra');
+var path      = require('path');
+var readYaml  = require('yamljs');
+var writeYaml = require('write-yaml');
+var merge     = require('lodash.merge');
+var execSync  = require('child_process').execSync;
+var Promise   = require('ember-cli/lib/ext/promise');
+var Blueprint = require('ember-cli/lib/models/blueprint');
 
 module.exports = {
   getContents: function(fileName, type) {

@@ -6,13 +6,12 @@
     "enabledEnvironments": ["production"],
     "paths": [
       "app",
-      "addon",
-      "htmlbars-plugins"
+      "addon"
     ],
     "external": {
       "data": [{
         "base": "http://emberjs.com/api/",
-        "json": "http://builds.emberjs.com/tags/v2.0.0/ember-docs.json"
+        "json": "http://builds.emberjs.com/tags/v2.4.0/ember-docs.json"
       }]
     },
     "exclude": "vendor",

@@ -1,6 +1,6 @@
 /*jshint node:true*/
-var utils = require('../utils');
-var Promise    = require('ember-cli/lib/ext/promise');
+var utils   = require('../utils');
+var Promise = require('ember-cli/lib/ext/promise');
 
 module.exports = {
   description: 'Setup coverage',
@@ -15,16 +15,16 @@ module.exports = {
       travisYaml.addons = travisYaml.addons || {};
       travisYaml.after_script = travisYaml.after_script || [];
 
-      travisYaml.before_install.push('npm install -g codeclimate-test-reporter');
-      travisYaml.after_script.push('codeclimate-test-reporter < lcov.dat');
-
       if(!travisYaml.addons.code_climate) {
-        return utils.prompt.call(self, 'input', 'CodeClimate Repo Token:').then(function(response) {
+        travisYaml.before_install.push('npm install -g codeclimate-test-reporter');
+        travisYaml.after_script.push('codeclimate-test-reporter < lcov.dat');
+
+        return utils.prompt.call(self, 'input', '[Genie] CodeClimate Repo Token:').then(function(response) {
           var token = response.answer.trim();
 
           if(token === '') {
             token = '<CODE_CLIMATE_TOKEN_GOES_HERE>';
-            self.ui.writeLine('No worries! You can always enter it in later in your .travis.yml file');
+            self.ui.writeLine('[Genie] No worries! You can always enter it in later in your .travis.yml file');
           }
 
           travisYaml.addons.code_climate = {

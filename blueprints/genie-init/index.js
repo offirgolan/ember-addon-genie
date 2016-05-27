@@ -52,7 +52,9 @@ function modifyPackageJson() {
 
   json.author = locals.username + ' <' + locals.email + '>';
 
-  json['ember-addon'].demoURL = 'http://' + locals.username + '.github.io/' + json.name;
+  if(this._selectedOptions.ghPages) {
+    json['ember-addon'].demoURL = 'http://' + locals.username + '.github.io/' + json.name;
+  }
 
   utils.setContents.call(this, 'package.json', 'json', json);
 }

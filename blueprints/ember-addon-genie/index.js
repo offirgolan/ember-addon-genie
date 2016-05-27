@@ -1,6 +1,6 @@
 /*jshint node:true*/
-var utils      = require('../utils');
-var Promise    = require('ember-cli/lib/ext/promise');
+var utils   = require('../utils');
+var Promise = require('ember-cli/lib/ext/promise');
 
 var PossibleOptions = [
   { name: 'Code Coverage (Blanket + CodeClimate)', value: 'coverage', checked: true },
@@ -25,7 +25,7 @@ module.exports = {
   _process: function(type, options) {
     var self = this;
 
-    return this._getOptions(options).then(function(selectedOptions) {
+    return this._getOptions(type, options).then(function(selectedOptions) {
       return utils.processBlueprint.call(self, type, 'genie-init', options, { _selectedOptions: selectedOptions }).then(function() {
         var promise = selectedOptions.coverage ? utils.processBlueprint.call(self, type, 'genie-coverage', options, { _selectedOptions: selectedOptions }) : Promise.resolve();
 
@@ -46,9 +46,9 @@ module.exports = {
     });
   },
 
-  _getOptions: function(options) {
+  _getOptions: function(type, options) {
     return Promise.resolve().then(function() {
-      return utils.prompt.call(options, 'checkbox', 'Deselect any features you dont want (enter to continue):', PossibleOptions).then(function(response) {
+      return utils.prompt.call(options, 'checkbox', '[Genie] Select components to ' + type + ' (enter to continue):', PossibleOptions).then(function(response) {
         var selectedOptions = {};
 
         response.answer.forEach(function (option) {
