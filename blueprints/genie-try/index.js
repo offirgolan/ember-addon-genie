@@ -9,7 +9,7 @@ module.exports = {
   afterInstall: function() {
     var self = this;
 
-    return utils.prompt.call(this, 'input', 'Which scenarios would you like to test (comma seperated):').then(function(response) {
+    return utils.prompt.call(this, 'input', '[Genie] Which ember-try scenarios should be added (comma seperated):').then(function(response) {
       var scenarios = response.answer.trim();
       scenarios = scenarios === '' ? [] : scenarios.split(',');
 

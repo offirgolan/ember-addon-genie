@@ -50,6 +50,7 @@
     "exists-sync": "0.0.3",
     "fs-extra": "^0.30.0",
     "lodash.merge": "^4.4.0",
+    "rsvp": "^3.2.1",
     "walk-sync": "^0.2.6",
     "yamljs": "^0.2.7"
   },
