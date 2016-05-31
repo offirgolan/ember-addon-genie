@@ -1,5 +1,6 @@
 /*jshint node:true*/
 var utils = require('../utils');
+var EOL = require('os').EOL;
 
 module.exports = {
   description: 'Setup Ember Try',
@@ -15,6 +16,17 @@ module.exports = {
 
       self._generateTryConfig(scenarios);
       self._addScenariosToTravis(scenarios);
+    }).then(function() {
+      return self.insertIntoFile('tests/dummy/config/environment.js',
+        '    ENV.EmberENV.RAISE_ON_DEPRECATION = true;', {
+        after: '// ENV.APP.LOG_VIEW_LOOKUPS = true;' + EOL
+      });
+    }).then(function() {
+      return self.insertIntoFile('tests/dummy/config/environment.js',
+        '\n    // Deprecations should we treated as errors' +
+        '\n    ENV.EmberENV.RAISE_ON_DEPRECATION = !process.env[\'ALLOW_DEPRECATIONS\'];', {
+        after: 'ENV.APP.LOG_VIEW_LOOKUPS = false;' + EOL
+      });
     });
   },
 
@@ -29,13 +41,13 @@ module.exports = {
 
     travisYaml.env = travisYaml.env.concat([
       'EMBER_TRY_SCENARIO=ember-release',
-      'EMBER_TRY_SCENARIO=ember-beta',
-      'EMBER_TRY_SCENARIO=ember-canary'
+      'ALLOW_DEPRECATIONS=true EMBER_TRY_SCENARIO=ember-beta',
+      'ALLOW_DEPRECATIONS=true EMBER_TRY_SCENARIO=ember-canary'
     ]);
 
     travisYaml.matrix.allow_failures = [
-      { env: 'EMBER_TRY_SCENARIO=ember-beta'},
-      { env: 'EMBER_TRY_SCENARIO=ember-canary'},
+      { env: 'ALLOW_DEPRECATIONS=true EMBER_TRY_SCENARIO=ember-beta'},
+      { env: 'ALLOW_DEPRECATIONS=true EMBER_TRY_SCENARIO=ember-canary'}
     ];
 
     travisYaml.script = [
