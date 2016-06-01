@@ -52,6 +52,7 @@
     "lodash.merge": "^4.4.0",
     "rsvp": "^3.2.1",
     "walk-sync": "^0.2.6",
+    "write-yaml": "^0.2.2",
     "yamljs": "^0.2.7"
   },
   "ember-addon": {
