@@ -14,7 +14,30 @@ ember install ember-addon-genie
 If it is a bug [please open an issue on GitHub](http://github.com/offirgolan/ember-addon-genie/issues).
 
 
-## Setup CodeClimate (Coverage)
+## Blueprints
+
+When you first install ember-addon-genie or run the default blueprint via
+`ember g ember-addon-genie` you will get the following prompt to select which
+components you want to include in your addon.
+
+![prompt](http://i.imgur.com/hZR0axZ.png)
+
+Note: All items are already pre-selected, press _SPACE_ to deselect and _ENTER_ to continue
+
+### genie-init
+
+- Takes your selected options and installs the correct packages
+- Modifies `package.json` to add some missing information such as repo details, author, and demoURL
+
+![genie-init](http://i.imgur.com/GBnWzBI.png)
+
+### genie-coverage
+
+- Sets up ember-cli-blanket
+- Sets up CodeClimate for code coverage reporting integration with TravisCI
+    - A prompt will ask you for your CodeClimate repo token, if you don't have it, just press _ENTER_ and you can modify it later in your `.travis.yml` or run `ember g genie-coverage`
+
+__Get Your CodeClimate Token__
 
 1. Create a [CodeClimate](https://codeclimate.com) account for your github repo
 2. Grab your `CODECLIMATE_REPO_TOKEN` from Settings --> Test Coverage --> JavaScript
@@ -25,10 +48,38 @@ If it is a bug [please open an issue on GitHub](http://github.com/offirgolan/emb
     CODECLIMATE_REPO_TOKEN=<YOUR_REPO_TOKEN> codeclimate-test-reporter < lcov.info
     ```
 
-3. Open up `.travis.yml` and replace `<CODE_CLIMATE_TOKEN_GOES_HERE>` with your repo token
-4. Save & Commit
+![genie-coverage](http://i.imgur.com/kim7WRx.png)
 
-## Setup Github Pages
+### genie-try
 
-Once you have committed all your changes, you need to setup your gh-pages branch. To do that, please
-follow the instructions on the [ember-cli-github-pages](https://github.com/poetic/ember-cli-github-pages) README.
+- Setup ember-try scenarios with TravisCI
+    - A prompt will ask you to enter a comma separated list of Ember versions you want to create scenarios for (ex. `1.13`, `2.2`, `2.4` `2.5`)
+
+![genie-try](http://i.imgur.com/BEGGEqy.png)
+
+### genie-gh-pages
+
+- Setup ember-release to publish a new version of your addon's demo app when to the `gh-pages` branch when you release to NPM
+
+__Setup Github Pages__
+
+Please follow the instructions on the  [ember-cli-github-pages](https://github.com/poetic/ember-cli-github-pages) README to setup your `gh-pages` branch
+
+![genie-gh-pages](http://i.imgur.com/4qXmtDK.png)
+
+### genie-docs
+
+- Setup YUIDoc via `ember-cli-yuidoc`
+    - Config is setup so docs will be present in production mode. This means that when you run `ember release` it will publish your addon's demo page AND your updated docs to the gh-pages branch
+
+__Usage__
+
+To view your docs you will need to use
+
+```
+ember serve --docs
+```
+
+Once your server is ready, navigate to `localhost:4200/docs` and you should see all your YUIDoc defined classes and modules.
+
+![genie-try](http://i.imgur.com/BEGGEqy.png)
