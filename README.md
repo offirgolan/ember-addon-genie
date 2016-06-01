@@ -33,8 +33,8 @@ Note: All items are already pre-selected, press _SPACE_ to deselect and _ENTER_ 
 
 ### genie-coverage
 
-- Sets up ember-cli-blanket
-- Sets up CodeClimate for code coverage reporting integration with TravisCI
+- Setup ember-cli-blanket
+- Setup CodeClimate for code coverage reporting integration with TravisCI
     - A prompt will ask you for your CodeClimate repo token, if you don't have it, just press _ENTER_ and you can modify it later in your `.travis.yml` or run `ember g genie-coverage`
 
 __Get Your CodeClimate Token__
