@@ -31,6 +31,10 @@ Note: All items are already pre-selected, press _SPACE_ to deselect and _ENTER_ 
 
 ![genie-init](http://i.imgur.com/GBnWzBI.png)
 
+### genie-chrome
+
+- Setup TravisCI to run your tests with Chrome instead of PhantomJS
+
 ### genie-coverage
 
 - Setup ember-cli-blanket

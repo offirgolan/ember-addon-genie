@@ -65,5 +65,19 @@ module.exports = {
     return Promise.resolve().then(function() {
        return bluePrint[type](merge({}, options));
      });
+  },
+
+  insert: function(type, content, str, contentToInsert) {
+    if(content.indexOf(contentToInsert) !== -1) {
+      return content;
+    }
+
+    var indexToInsert = content.indexOf(str);
+
+    if(type === 'after') {
+      indexToInsert += str.length;
+    }
+
+    return content.substr(0, indexToInsert) + contentToInsert + content.substr(indexToInsert);
   }
 };

@@ -1,12 +1,15 @@
 /*jshint node:true*/
-var utils   = require('../utils');
-var Promise = require('ember-cli/lib/ext/promise');
+var utils     = require('../utils');
+var Promise   = require('ember-cli/lib/ext/promise');
+var mapSeries = require('promise-map-series');
 
 var PossibleOptions = [
-  { name: 'Code Coverage (Blanket + CodeClimate)', value: 'coverage', checked: true },
-  { name: 'Release + Github Pages Publish', value: 'ghPages', checked: true },
-  { name: 'Ember Try', value: 'try', checked: true },
-  { name: 'Docs (YUI)', value: 'docs', checked: true }
+  { name: 'Init', value: 'init', disabled: 'Default', blueprint: 'genie-init' },
+  { name: 'Chrome + Travis CI', value: 'chrome', checked: true, blueprint: 'genie-chrome' },
+  { name: 'Code Coverage (Blanket + CodeClimate)', value: 'coverage', checked: true, blueprint: 'genie-coverage' },
+  { name: 'Release + Github Pages Publish', value: 'ghPages', checked: true, blueprint: 'genie-gh-pages' },
+  { name: 'Ember Try', value: 'try', checked: true, blueprint: 'genie-try'},
+  { name: 'Docs (YUI)', value: 'docs', checked: true, blueprint: 'genie-docs' }
 ];
 
 module.exports = {
@@ -26,22 +29,11 @@ module.exports = {
     var self = this;
 
     return this._getOptions(type, options).then(function(selectedOptions) {
-      return utils.processBlueprint.call(self, type, 'genie-init', options, { _selectedOptions: selectedOptions }).then(function() {
-        var promise = selectedOptions.coverage ? utils.processBlueprint.call(self, type, 'genie-coverage', options, { _selectedOptions: selectedOptions }) : Promise.resolve();
-
-        return promise.then(function() {
-          var promise = selectedOptions.ghPages ? utils.processBlueprint.call(self, type, 'genie-gh-pages', options) : Promise.resolve();
-
-          return promise.then(function() {
-            var promise = selectedOptions.try ? utils.processBlueprint.call(self, type, 'genie-try', options) : Promise.resolve();
-
-            return promise.then(function() {
-              var promise = selectedOptions.docs ? utils.processBlueprint.call(self, type, 'genie-docs', options) : Promise.resolve();
-
-              return promise;
-            });
-          });
-        });
+      return mapSeries(PossibleOptions, function(o) {
+        if(selectedOptions[o.value]) {
+          return utils.processBlueprint.call(self, type, o.blueprint, options, { _selectedOptions: selectedOptions });
+        }
+        return Promise.resolve();
       });
     });
   },
@@ -49,9 +41,13 @@ module.exports = {
   _getOptions: function(type, options) {
     return Promise.resolve().then(function() {
       return utils.prompt.call(options, 'checkbox', '[Genie] Select components to ' + type + ' (enter to continue):', PossibleOptions).then(function(response) {
+        var answers = response.answer;
         var selectedOptions = {};
 
-        response.answer.forEach(function (option) {
+        // Add required blueprints
+        answers.unshift('init');
+
+        answers.forEach(function (option) {
           selectedOptions[option] = true;
         });
 

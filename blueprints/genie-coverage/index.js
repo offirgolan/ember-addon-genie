@@ -9,12 +9,30 @@ module.exports = {
 
   afterInstall: function() {
     var self = this;
+
+    return this._modifyTavisYaml().then(function() {
+      return self._modifyTestemJs();
+    }).then(function() {
+      return self.insertIntoFile('.gitignore', 'lcov.dat');
+    });
+  },
+
+  _modifyTestemJs: function() {
+    var contentToInsert = 'coverage=true&';
+    var testemJs = utils.getContents.call(this, 'testem.js', 'js');
+
+    testemJs = utils.insert('after', testemJs, 'tests/index.html?', 'coverage=true&');
+    utils.setContents.call(this, 'testem.js', 'js', testemJs);
+  },
+
+  _modifyTavisYaml: function() {
+    var self = this;
     var travisYaml = utils.getContents.call(this, '.travis.yml', 'yaml');
 
-    return this.insertIntoFile('.gitignore', 'lcov.dat').then(function() {
-      travisYaml.addons = travisYaml.addons || {};
-      travisYaml.after_script = travisYaml.after_script || [];
+    travisYaml.addons = travisYaml.addons || {};
+    travisYaml.after_script = travisYaml.after_script || [];
 
+    return Promise.resolve().then(function() {
       if(!travisYaml.addons.code_climate) {
         travisYaml.before_install.push('npm install -g codeclimate-test-reporter');
         travisYaml.after_script.push('codeclimate-test-reporter < lcov.dat');
@@ -37,5 +55,5 @@ module.exports = {
     }).then(function() {
       utils.setContents.call(self, '.travis.yml', 'yaml', travisYaml);
     });
-  },
+  }
 };
