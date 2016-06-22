@@ -39,20 +39,18 @@ module.exports = {
   },
 
   _getOptions: function(type, options) {
-    return Promise.resolve().then(function() {
-      return utils.prompt.call(options, 'checkbox', '[Genie] Select components to ' + type + ' (enter to continue):', PossibleOptions).then(function(response) {
-        var answers = response.answer;
-        var selectedOptions = {};
+    return utils.prompt.call(options, 'checkbox', '[Genie] Select components to ' + type + ' (enter to continue):', PossibleOptions).then(function(response) {
+      var answers = response.answer;
+      var selectedOptions = {};
 
-        // Add required blueprints
-        answers.unshift('init');
+      // Add required blueprints
+      answers.unshift('init');
 
-        answers.forEach(function (option) {
-          selectedOptions[option] = true;
-        });
-
-        return selectedOptions;
+      answers.forEach(function (option) {
+        selectedOptions[option] = true;
       });
+
+      return selectedOptions;
     });
   }
 };
