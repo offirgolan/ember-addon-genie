@@ -23,7 +23,7 @@ module.exports = {
       });
     }).then(function() {
       return self.insertIntoFile('tests/dummy/config/environment.js',
-        '\n    // Deprecations should we treated as errors' +
+        '\n    // Deprecations should be treated as errors' +
         '\n    ENV.EmberENV.RAISE_ON_DEPRECATION = !process.env[\'ALLOW_DEPRECATIONS\'];', {
         after: 'ENV.APP.LOG_VIEW_LOOKUPS = false;' + EOL
       });
