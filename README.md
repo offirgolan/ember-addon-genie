@@ -101,7 +101,7 @@ Generate a changelog in markdown by comparing the given version to the given bra
 __Available Options__
 
 - `user`: The repo user or org. Defaults to your current git username
-- `repo`: The repo name. Defaults to your current git username
+- `repo`: The repo name. Defaults to your current project's name
 - `version`: The version to be compared with the branch. Defaults to your current repo's version
 - `new-version`: The new version. This is used to title the changes when written to file
 - `branch`: The branch to compare with the version. Defaults to 'master'
