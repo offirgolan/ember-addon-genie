@@ -1,5 +1,5 @@
 /*jshint node:true*/
-var utils      = require('../utils');
+var utils      = require('../../lib/utils/utils');
 var Promise    = require('ember-cli/lib/ext/promise');
 
 module.exports = {
@@ -34,10 +34,7 @@ module.exports = {
   },
 
   locals: function() {
-    return {
-      email: utils.runCommand('git config user.email'),
-      username: utils.runCommand('git config user.name'),
-    };
+    return utils.getGitUserInfo();
   }
 };
 

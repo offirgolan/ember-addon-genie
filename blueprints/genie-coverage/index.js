@@ -1,5 +1,5 @@
 /*jshint node:true*/
-var utils   = require('../utils');
+var utils   = require('../../lib/utils/utils');
 var Promise = require('ember-cli/lib/ext/promise');
 
 module.exports = {

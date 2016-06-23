@@ -1,5 +1,5 @@
 /*jshint node:true*/
-var utils = require('../utils');
+var utils = require('../../lib/utils/utils');
 
 module.exports = {
   description: 'Setup YUI Doc',
@@ -7,9 +7,6 @@ module.exports = {
   normalizeEntityName: function() {},
 
   locals: function() {
-    return {
-      email: utils.runCommand('git config user.email'),
-      username: utils.runCommand('git config user.name'),
-    };
+    return utils.getGitUserInfo();
   }
 };

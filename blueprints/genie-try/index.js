@@ -1,5 +1,5 @@
 /*jshint node:true*/
-var utils = require('../utils');
+var utils = require('../../lib/utils/utils');
 var EOL = require('os').EOL;
 
 module.exports = {

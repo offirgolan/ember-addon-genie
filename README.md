@@ -71,6 +71,10 @@ Please follow the instructions on the  [ember-cli-github-pages](https://github.c
 
 ![genie-gh-pages](http://i.imgur.com/4qXmtDK.png)
 
+### genie-changelog
+
+- Setup ember-release to update the changelog with the latest commits
+
 ### genie-docs
 
 - Setup YUIDoc via `ember-cli-yuidoc`
@@ -87,3 +91,23 @@ ember serve --docs
 Once your server is ready, navigate to `localhost:4200/docs` and you should see all your YUIDoc defined classes and modules.
 
 ![genie-try](http://i.imgur.com/BEGGEqy.png)
+
+## Commands
+
+### genie:changelog
+
+Generate a changelog in markdown by comparing the given version to the given branch of a repo.
+
+__Available Options__
+
+- `user`: The repo user or org. Defaults to your current git username
+- `repo`: The repo name. Defaults to your current git username
+- `version`: The version to be compared with the branch. Defaults to your current repo's version
+- `new-version`: The new version. This is used to title the changes when written to file
+- `branch`: The branch to compare with the version. Defaults to 'master'
+- `write`: If set to true will write to `file`. Defaults false
+- `file`: Path to changelog file. Defaults to 'CHANGELOG.md'
+
+```
+ember genie:changelog --user=ember-cli --repo=ember-cli --version=2.6.0 --branch=master --write=true --file=CHANGELOG.md
+```
