@@ -7,8 +7,8 @@ var PossibleOptions = [
   { name: 'Init', value: 'init', disabled: 'Default', blueprint: 'genie-init' },
   { name: 'Chrome + Travis CI', value: 'chrome', checked: true, blueprint: 'genie-chrome' },
   { name: 'Code Coverage (Blanket + CodeClimate)', value: 'coverage', checked: true, blueprint: 'genie-coverage' },
-  { name: 'Release + Github Pages Publish', value: 'ghPages', checked: true, blueprint: 'genie-gh-pages' },
   { name: 'Release + Changelog Publish', value: 'changelog', checked: true, blueprint: 'genie-changelog' },
+  { name: 'Release + Github Pages Publish', value: 'ghPages', checked: true, blueprint: 'genie-gh-pages' },
   { name: 'Ember Try', value: 'try', checked: true, blueprint: 'genie-try'},
   { name: 'Docs (YUI)', value: 'docs', checked: true, blueprint: 'genie-docs' }
 ];

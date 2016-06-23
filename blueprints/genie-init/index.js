@@ -10,7 +10,8 @@ module.exports = {
   beforeInstall: function() {
     var selectedOptions = this._selectedOptions || {};
     var packages = [
-      'ember-cli-es5-shim'
+      'ember-cli-es5-shim',
+      'ember-cli-release'
     ];
 
     if(selectedOptions.coverage) {
@@ -18,8 +19,11 @@ module.exports = {
     }
 
     if(selectedOptions.ghPages) {
-      packages.push('ember-cli-release');
       packages.push('ember-cli-github-pages');
+    }
+
+    if(selectedOptions.changelog) {
+      packages.push('ember-cli-changelog');
     }
 
     if(selectedOptions.docs) {
