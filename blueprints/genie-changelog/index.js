@@ -5,7 +5,7 @@ var Promise = require('ember-cli/lib/ext/promise');
 var EOL     = require('os').EOL;
 
 module.exports = {
-  description: 'Genie Github Pages',
+  description: 'Genie Changelog',
 
   normalizeEntityName: function() {},
 
