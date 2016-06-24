@@ -1,6 +1,7 @@
 # Ember Addon Genie
 
 [![npm version](https://badge.fury.io/js/ember-addon-genie.svg)](http://badge.fury.io/js/ember-addon-genie)
+[![Build Status](https://travis-ci.org/offirgolan/ember-addon-genie.svg?branch=master)](https://travis-ci.org/offirgolan/ember-addon-genie)
 
 Blueprint for setting up an addon with a build, ember-try scenarios, code coverage, and documentation via YUI
 
