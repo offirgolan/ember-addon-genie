@@ -1,5 +1,7 @@
 {
   "predef": [
+    "describe",
+    "it",
     "document",
     "window",
     "-Promise"

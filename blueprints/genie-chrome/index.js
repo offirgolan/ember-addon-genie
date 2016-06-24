@@ -33,7 +33,10 @@ module.exports = {
 
     // Add chrome required setup scripts
     beforeInstall = travisYaml.before_install;
-    beforeInstall.unshift('export DISPLAY=:99.0', 'sh -e /etc/init.d/xvfb start');
+
+    if(beforeInstall.indexOf('export DISPLAY=:99.0') === -1) {
+      beforeInstall.unshift('export DISPLAY=:99.0', 'sh -e /etc/init.d/xvfb start');
+    }
 
     // Remove phantomjs script
     var found = false;

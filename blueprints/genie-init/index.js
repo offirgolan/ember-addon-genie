@@ -34,28 +34,33 @@ module.exports = {
   },
 
   afterInstall: function() {
-    modifyPackageJson.call(this);
+    this.modifyPackageJson();
   },
 
   locals: function() {
     return utils.getGitUserInfo();
+  },
+
+  modifyPackageJson: function() {
+    var json = utils.getContents.call(this, 'package.json', 'json');
+    var locals = this.locals();
+
+    if(json.repository === '') {
+      json.repository = {
+        'type': 'git',
+        'url': 'git@github.com:' + locals.username + '/' + json.name + '.git'
+      };
+    }
+
+    if(json.autho === '') {
+      json.author = locals.username + ' <' + locals.email + '>';
+    }
+
+    if(this._selectedOptions.ghPages && !json['ember-addon'].demoURL) {
+      json['ember-addon'].demoURL = 'http://' + locals.username + '.github.io/' + json.name;
+    }
+
+    utils.setContents.call(this, 'package.json', 'json', json);
   }
+
 };
-
-function modifyPackageJson() {
-  var json = utils.getContents.call(this, 'package.json', 'json');
-  var locals = this.locals();
-
-  json.repository = {
-    'type': 'git',
-    'url': 'git@github.com:' + locals.username + '/' + json.name + '.git'
-  };
-
-  json.author = locals.username + ' <' + locals.email + '>';
-
-  if(this._selectedOptions.ghPages) {
-    json['ember-addon'].demoURL = 'http://' + locals.username + '.github.io/' + json.name;
-  }
-
-  utils.setContents.call(this, 'package.json', 'json', json);
-}
