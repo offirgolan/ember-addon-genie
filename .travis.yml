@@ -22,5 +22,9 @@ install:
   - npm install
   - bower install
 
+before_script:
+  - git config --global user.name "offirgolan"
+  - git config --global user.email "offirgolan@gmail.com"
+
 script:
-  - npm run-script nodetest
+  - npm run-script blueprint-test

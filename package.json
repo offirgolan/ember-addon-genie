@@ -10,7 +10,7 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember try:testall",
-    "nodetest": "mocha node-tests --recursive --require babel-register"
+    "blueprint-test": "mocha node-tests --recursive --require babel-register"
   },
   "repository": {
     "type": "git",
