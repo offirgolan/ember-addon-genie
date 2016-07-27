@@ -52,7 +52,7 @@ module.exports = {
       };
     }
 
-    if(json.autho === '') {
+    if(json.author === '') {
       json.author = locals.username + ' <' + locals.email + '>';
     }
 
