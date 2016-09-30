@@ -64,11 +64,7 @@ __Get Your CodeClimate Token__
 
 ### genie-gh-pages
 
-- Setup ember-release to publish a new version of your addon's demo app when to the `gh-pages` branch when you release to NPM
-
-__Setup Github Pages__
-
-Please follow the instructions on the  [ember-cli-github-pages](https://github.com/poetic/ember-cli-github-pages) README to setup your `gh-pages` branch
+- Setup ember-release to publish a new version of your addon's demo app when to the `gh-pages` branch when you release
 
 ![genie-gh-pages](http://i.imgur.com/4qXmtDK.png)
 

@@ -11,18 +11,8 @@ module.exports = {
     var self = this;
 
     return this._modifyTavisYaml().then(function() {
-      return self._modifyTestemJs();
-    }).then(function() {
-      return self.insertIntoFile('.gitignore', 'lcov.dat');
+      return self.insertIntoFile('.gitignore', '/coverage/*');
     });
-  },
-
-  _modifyTestemJs: function() {
-    var contentToInsert = 'coverage=true&';
-    var testemJs = utils.getContents.call(this, 'testem.js', 'js');
-
-    testemJs = utils.insert('after', testemJs, 'tests/index.html?', 'coverage=true&');
-    utils.setContents.call(this, 'testem.js', 'js', testemJs);
   },
 
   _modifyTavisYaml: function() {
@@ -35,7 +25,7 @@ module.exports = {
     return Promise.resolve().then(function() {
       if(!travisYaml.addons.code_climate) {
         travisYaml.before_install.push('npm install -g codeclimate-test-reporter');
-        travisYaml.after_script.push('codeclimate-test-reporter < lcov.dat');
+        travisYaml.after_script.push('codeclimate-test-reporter < coverage/lcov.info');
 
         return utils.prompt.call(self, 'input', '[Genie] CodeClimate Repo Token:').then(function(response) {
           var token = response.answer.trim();

@@ -10,11 +10,12 @@ module.exports = {
   beforeInstall: function() {
     var selectedOptions = this._selectedOptions || {};
     var packages = [
+      'ember-suave',
       'ember-cli-es5-shim'
     ];
 
     if(selectedOptions.coverage) {
-      packages.push('ember-cli-blanket');
+      packages.push('ember-cli-code-coverage');
     }
 
     if(selectedOptions.ghPages) {

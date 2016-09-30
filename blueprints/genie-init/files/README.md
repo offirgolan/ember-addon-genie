@@ -17,7 +17,7 @@ ember install <%= dasherizedPackageName %>
 
 ## Helpful Links
 
-- ### [Live Demo](http://<%= username %>/.github.io/<%= dasherizedPackageName %>)
+- ### [Live Demo](http://<%= username %>.github.io/<%= dasherizedPackageName %>)
 
 - ### [Changelog](CHANGELOG.md)
 
