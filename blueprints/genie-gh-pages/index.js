@@ -1,7 +1,8 @@
 /*jshint node:true*/
 
 var multiline = require('multiline');
-var EOL       = require('os').EOL;
+var Promise = require('ember-cli/lib/ext/promise');
+var EOL     = require('os').EOL;
 
 module.exports = {
   description: 'Genie Github Pages',
@@ -11,17 +12,13 @@ module.exports = {
   afterInstall: function() {
     var self = this;
 
-    return this.insertIntoFile('config/release.js',
-      'var publishToGhPages = require(\'ember-addon-genie/lib/tasks/publish-to-ghpages\');',
-      { after: '/* jshint node:true */' + EOL })
-    .then(function() {
-      return self.insertIntoFile('config/release.js', multiline(function() {/*
-  // Auto publish to NPM when running `ember release`
-  // If you dont want to publish to NPM, set this to false and
-  // change `afterPublish: publishToGhPages` to `afterPush: publishToGhPages`
-  publish: true,
-  afterPublish: publishToGhPages,
-    */}), { after: 'module.exports = {' + EOL });
+    return this.insertIntoFile('config/release.js', multiline(function() {/*
+  afterPublish: function(project, versions) {
+    runCommand('ember github-pages:commit --message "Released ' + versions.next + '"', true);
+    runCommand('git push origin gh-pages:gh-pages', true);
+  },
+    */}), {
+      after: 'module.exports = {' + EOL
     });
   }
 };
