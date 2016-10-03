@@ -8,6 +8,10 @@ module.exports = {
 
   normalizeEntityName: function() {},
 
+  beforeInstall: function() {
+    return this.addAddonToProject('ember-cli-github-pages');
+  },
+
   afterInstall: function() {
     var self = this;
 

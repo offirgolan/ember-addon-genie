@@ -7,6 +7,10 @@ module.exports = {
 
   normalizeEntityName: function() {},
 
+  beforeInstall: function() {
+    return this.addAddonToProject('ember-cli-code-coverage');
+  },
+
   afterInstall: function() {
     var self = this;
 

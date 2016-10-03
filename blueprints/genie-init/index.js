@@ -8,26 +8,12 @@ module.exports = {
   normalizeEntityName: function() {},
 
   beforeInstall: function() {
-    var selectedOptions = this._selectedOptions || {};
-    var packages = [
-      'ember-suave',
-      'ember-cli-es5-shim'
-    ];
-
-    if(selectedOptions.coverage) {
-      packages.push('ember-cli-code-coverage');
-    }
-
-    if(selectedOptions.ghPages) {
-      packages.push('ember-cli-release');
-      packages.push('ember-cli-github-pages');
-    }
-
-    if(selectedOptions.docs) {
-      packages.push('ember-cli-yuidoc');
-    }
-
-    return this.addAddonsToProject({ packages: packages });
+    return this.addAddonsToProject({
+      packages: [
+        'ember-suave',
+        'ember-cli-es5-shim'
+      ]
+    });
   },
 
   afterInstall: function() {

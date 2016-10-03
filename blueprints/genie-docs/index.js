@@ -6,6 +6,10 @@ module.exports = {
 
   normalizeEntityName: function() {},
 
+  beforeInstall: function() {
+    return this.addAddonToProject('ember-cli-yuidoc');
+  },
+
   locals: function() {
     return utils.getGitUserInfo();
   }
