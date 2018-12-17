@@ -1,6 +1,6 @@
 {
   "name": "ember-addon-genie",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Blueprint for setting up an addon with a build and code coverage",
   "directories": {
     "doc": "doc",
